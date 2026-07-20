@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fly-Barber Piotr Mucha – Studio Fryzur w Gorlicach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --black-2: #141414;
+            --gray: #888;
+            --white: #ffffff;
+            --gold: #c9a84c;
+            --gold-light: #e8d5a3;
+            --red: #c41e3a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(10,10,10,0.97);
+            backdrop-filter: blur(20px);
+            padding: 0.8rem 3rem;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--black) 0%, var(--black-2) 50%, var(--black) 100%);
+        }
+
+        .hero-bg-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .hero-logo-circle {
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            background: rgba(201,168,76,0.05);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-logo-circle i {
+            font-size: 3rem;
+            color: var(--gold);
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 400;
+            line-height: 0.9;
+            margin-bottom: 1rem;
+            color: var(--white);
+            animation: fadeInUp 1s ease 0.2s both;
+            letter-spacing: 4px;
+        }
+
+        .hero h1 .gold-text {
+            color: var(--gold);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201,168,76,0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: var(--black);
+            transform: translateY(-3px);
+        }
+
+        .hero-info-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(201,168,76,0.1);
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .hero-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .hero-info-item i {
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+
+        .hero-info-item strong {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        section {
+            padding: 6rem 3rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            color: var(--gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            background: var(--black-2);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-images {
+            position: relative;
+        }
+
+        .about-img-main {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .about-img-accent {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            border: 4px solid var(--gold);
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .about-content h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .about-content p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .about-feature i {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-top: 0.2rem;
+        }
+
+        .about-feature div strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .about-feature div span {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            background: var(--black);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: rgba(201,168,76,0.3);
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(201,168,76,0.1);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: var(--gold);
+        }
+
+        .service-card h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .service-price {
+            color: var(--gold);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .service-price span {
+            font-size: 1rem;
+            color: var(--gray);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery {
+            background: var(--black-2);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-overlay span {
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+
+        /* ===== HOURS ===== */
+        .hours-section {
+            background: var(--black);
+        }
+
+        .hours-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .hours-row:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hours-day i {
+            color: var(--gold);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        .hours-day-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .hours-time {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .hours-note {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.2rem;
+            background: rgba(201,168,76,0.05);
+            border-radius: 12px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .hours-note i {
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            background: var(--black-2);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .contact-info h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .contact-info p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            background: rgba(201,168,76,0.1);
+            border: 2px solid rgba(201,168,76,0.2);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+        }
+
+        .contact-item div strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-item div span, .contact-item div a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .contact-item div a:hover {
+            color: var(--gold);
+        }
+
+        .contact-map {
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(0.3) contrast(1.1);
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: linear-gradient(135deg, var(--black-2) 0%, var(--black) 100%);
+            padding: 5rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid rgba(201,168,76,0.1);
+        }
+
+        .cta h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .cta p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .cta .btn:hover {
+            background: var(--gold-light);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--black);
+            padding: 3rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .footer-social a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--gold);
+            color: var(--black);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .footer-copy {
+            color: var(--gray);
+            font-size: 0.85rem;
+        }
+
+        .footer-copy a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img-accent {
+                display: none;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-item.wide {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-info-bar {
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .hours-container {
+                padding: 1.5rem;
+            }
+
+            .contact-map {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-item.wide {
+                grid-column: span 1;
+                aspect-ratio: 1;
+            }
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">FLY-<span>BARBER</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">Strona główna</a></li>
+            <li><a href="#o-nas">O nas</a></li>
+            <li><a href="#uslugi">Usługi</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-bg-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-logo-circle">
+                <i class="fas fa-cut"></i>
+            </div>
+            <h1>
+                Fly-Barber<br>
+                <span class="gold-text">Piotr Mucha</span>
+            </h1>
+            <p class="hero-subtitle">
+                Profesjonalne studio fryzur w Gorlicach. Strzyżenia męskie, 
+                brody, koloryzacje i stylizacje. Zapisz się już dziś!
+            </p>
+            <div class="hero-buttons">
+                <a href="#kontakt" class="btn btn-primary">
+                    <i class="fas fa-calendar-check"></i> Zapisz się online
+                </a>
+                <a href="tel:+48123456789" class="btn btn-outline">
+                    <i class="fas fa-phone"></i> Zadzwoń
+                </a>
+            </div>
+        </div>
+        <div class="hero-info-bar">
+            <div class="hero-info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div><strong>Lokalizacja:</strong> Gorlice, Studio Fryzur</div>
+            </div>
+            <div class="hero-info-item">
+                <i class="fas fa-clock"></i>
+                <div><strong>Godziny:</strong> Pn–Sb (sprawdź w zakładce)</div>
+            </div>
+            <div class="hero-info-item">
+                <i class="fas fa-star"></i>
+                <div><strong>Doświadczenie:</strong> Profesjonalne cięcia</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="o-nas">
+        <div class="section-header fade-in">
+            <span class="section-label">O nas</span>
+            <h2 class="section-title">Fly-Barber Piotr Mucha</h2>
+            <p class="section-subtitle">Mistrzowskie cięcia w streetwearowym klimacie</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-images fade-in">
+                <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=800&h=600&fit=crop" alt="Barber przy pracy" class="about-img-main">
+                <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=400&fit=crop" alt="Fryzura" class="about-img-accent">
+            </div>
+            <div class="about-content fade-in">
+                <h3>Styl, który wyróżnia</h3>
+                <p>
+                    Fly-Barber to miejsce, gdzie tradycyjne rzemiosło barberskie spotyka się z 
+                    nowoczesnym streetwearowym klimatem. Piotr Mucha – założyciel i główny barber – 
+                    specjalizuje się w precyzyjnych cięciach, kreatywnych wzorach na głowie i 
+                    profesjonalnej pielęgnacji brody.
+                </p>
+                <p>
+                    Każdy klient traktowany jest indywidualnie. Niezależnie od tego, czy szukasz 
+                    klasycznego fade, nowoczesnego undercutu, czy odważnego artystycznego wzoru – 
+                    w Fly-Barber znajdziesz to, czego potrzebujesz.
+                </p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-cut"></i>
+                        <div>
+                            <strong>Strzyżenia męskie</strong>
+                            <span>Klasyczne i nowoczesne</span>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-paint-brush"></i>
+                        <div>
+                            <strong>Artystyczne wzory</strong>
+                            <span>Detale i kreatywne cięcia</span>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-spray-can"></i>
+                        <div>
+                            <strong>Koloryzacje</strong>
+                            <span>Pełna paleta kolorów</span>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-hand-sparkles"></i>
+                        <div>
+                            <strong>Pielęgnacja brody</strong>
+                            <span>Strzyżenie i modelowanie</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services" id="uslugi">
+        <div class="section-header fade-in">
+            <span class="section-label">Usługi</span>
+            <h2 class="section-title">Nasze usługi</h2>
+            <p class="section-subtitle">Profesjonalne cięcia w konkurencyjnych cenach</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-in">
+                <div class="service-icon"><i class="fas fa-cut"></i></div>
+                <h4>Strzyżenie męskie</h4>
+                <p>Klasyczne i nowoczesne cięcia dopasowane do kształtu twarzy i stylu życia.</p>
+                <div class="service-price">od 40 <span>zł</span></div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                <h4>Artystyczne wzory</h4>
+                <p>Kreatywne cięcia, detale, linie i wzory na głowie. Twoja indywidualność na wierzchu.</p>
+                <div class="service-price">od 60 <span>zł</span></div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon"><i class="fas fa-hand-sparkles"></i></div>
+                <h4>Broda & Wąsy</h4>
+                <p>Profesjonalne strzyżenie, modelowanie i pielęgnacja brody oraz wąsów.</p>
+                <div class="service-price">od 30 <span>zł</span></div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon"><i class="fas fa-spray-can"></i></div>
+                <h4>Koloryzacja</h4>
+                <p>Pełna paleta kolorów – od naturalnych odcieni po odważne, kreatywne kompozycje.</p>
+                <div class="service-price">od 80 <span>zł</span></div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon"><i class="fas fa-child"></i></div>
+                <h4>Strzyżenie dziecięce</h4>
+                <p>Cierpliwe podejście i profesjonalne cięcia dla najmłodszych klientów.</p>
+                <div class="service-price">od 30 <span>zł</span></div>
+            </div>
+            <div class="service-card fade-in">
+                <div class="service-icon"><i class="fas fa-spa"></i></div>
+                <h4>Combo – Włosy + Broda</h4>
+                <p>Kompleksowa usługa: strzyżenie włosów, brody i wąsów w jednym.</p>
+                <div class="service-price">od 60 <span>zł</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="galeria">
+        <div class="section-header fade-in">
+            <span class="section-label">Galeria</span>
+            <h2 class="section-title">Nasze prace</h2>
+            <p class="section-subtitle">Zobacz efekty naszej pracy – precyzja i styl</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item wide fade-in">
+                <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=800&h=400&fit=crop" alt="Barber">
+                <div class="gallery-item-overlay"><span>Profesjonalne cięcia</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=400&fit=crop" alt="Fade">
+                <div class="gallery-item-overlay"><span>Clean fade</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=400&h=400&fit=crop" alt="Wzory">
+                <div class="gallery-item-overlay"><span>Artystyczne wzory</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&h=400&fit=crop" alt="Broda">
+                <div class="gallery-item-overlay"><span>Pielęgnacja brody</span></div>
+            </div>
+            <div class="gallery-item wide fade-in">
+                <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&h=400&fit=crop" alt="Studio">
+                <div class="gallery-item-overlay"><span>Studio Fly-Barber</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&h=400&fit=crop" alt="Koloryzacja">
+                <div class="gallery-item-overlay"><span>Koloryzacje</span></div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=400&h=400&fit=crop" alt="Detale">
+                <div class="gallery-item-overlay"><span>Detale i precyzja</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOURS -->
+    <section class="hours-section" id="godziny">
+        <div class="section-header fade-in">
+            <span class="section-label">Godziny otwarcia</span>
+            <h2 class="section-title">Kiedy nas odwiedzić?</h2>
+            <p class="section-subtitle">Zapraszamy – pamiętaj o wcześniejszej rezerwacji!</p>
+        </div>
+        <div class="hours-container fade-in">
+            <div class="hours-row">
+                <div class="hours-day">
+                    <i class="fas fa-calendar-day"></i>
+                    <span class="hours-day-name">Poniedziałek</span>
+                </div>
+                <span class="hours-time">09:00 – 18:00</span>
+            </div>
+            <div class="hours-row">
+                <div class="hours-day">
+                    <i class="fas fa-calendar-day"></i>
+                    <span class="hours-day-name">Wtorek</span>
+                </div>
+                <span class="hours-time">09:00 – 18:00</span>
+            </div>
+            <div class="hours-row">
+                <div class="hours-day">
+                    <i class="fas fa-calendar-day"></i>
+                    <span class="hours-day-name">Środa</span>
+                </div>
+                <span class="hours-time">09:00 – 18:00</span>
+            </div>
+            <div class="hours-row">
+                <div class="hours-day">
+                    <i class="fas fa-calendar-day"></i>
+                    <span class="hours-day-name">Czwartek</span>
+                </div>
+                <span class="hours-time">09:00 – 18:00</span>
+            </div>
+            <div class="hours-row">
+                <div class="hours-day">
+                    <i class="fas fa-calendar-day"></i>
+                    <span class="hours-day-name">Piątek</span>
+                </div>
+                <span class="hours-time">09:00 – 20:00</span>
+            </div>
+            <div class="hours-row">
+                <div class="hours-day">
+                    <i class="fas fa-calendar-day"></i>
+                    <span class="hours-day-name">Sobota</span>
+                </div>
+                <span class="hours-time">09:00 – 14:00</span>
+            </div>
+            <div class="hours-row">
+                <div class="hours-day">
+                    <i class="fas fa-calendar-day"></i>
+                    <span class="hours-day-name">Niedziela</span>
+                </div>
+                <span class="hours-time" style="color: var(--gray);">Zamknięte</span>
+            </div>
+            <div class="hours-note">
+                <i class="fas fa-info-circle"></i>
+                Wizyty tylko po wcześniejszej rezerwacji. Zadzwoń lub napisz na Facebooku!
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="kontakt">
+        <div class="section-header fade-in">
+            <span class="section-label">Kontakt</span>
+            <h2 class="section-title">Zapisz się na wizytę</h2>
+            <p class="section-subtitle">Rezerwacja telefoniczna lub przez Facebooka</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info fade-in">
+                <h3>Fly-Barber Piotr Mucha</h3>
+                <p>
+                    Zapraszamy do naszego studia w Gorlicach. Oferujemy profesjonalne 
+                    strzyżenia męskie, artystyczne wzory, koloryzacje i pielęgnację brody. 
+                    Każdy klient traktowany jest indywidualnie – dopasowujemy styl do 
+                    Twojego charakteru i preferencji.
+                </p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <strong>Adres</strong>
+                            <span>Gorlice, Studio Fryzur Fly-Barber</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <strong>Telefon</strong>
+                            <a href="tel:+48123456789">+48 123 456 789</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-facebook-f"></i></div>
+                        <div>
+                            <strong>Facebook</strong>
+                            <a href="https://facebook.com" target="_blank">Fly-Barber Piotr Mucha</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-instagram"></i></div>
+                        <div>
+                            <strong>Instagram</strong>
+                            <a href="https://instagram.com" target="_blank">@flybarber</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <strong>Godziny otwarcia</strong>
+                            <span>Pn–Pt: 9:00–18:00 | Sb: 9:00–14:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-map fade-in">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2580.0!2d21.15!3d49.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDnCsDM5JzAwLjAiTiAyMcKwMDknMDAuMCJF!5e0!3m2!1spl!2spl!4v1" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2>Zapisz się już dziś!</h2>
+        <p>Nie czekaj – Twój nowy styl czeka. Zadzwoń lub napisz na Facebooku i umów wizytę.</p>
+        <a href="tel:+48123456789" class="btn">
+            <i class="fas fa-phone"></i> Zadzwoń i umów wizytę
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-logo">FLY-<span>BARBER</span></div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="tel:+48123456789"><i class="fas fa-phone"></i></a>
+        </div>
+        <p class="footer-copy">
+            © 2026 Fly-Barber Piotr Mucha. Wszelkie prawa zastrzeżone.<br>
+            Gorlice | Profesjonalne studio fryzur
+        </p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Fade in on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
